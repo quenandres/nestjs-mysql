@@ -11,7 +11,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       host: 'localhost',
       port: 3380,
       username: 'root',
-      password: 'faztpasword',
+      password: 'faztpassword',
       database: 'nestdb',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true, //Sincronizar los cambios en bd cuando se hagan los cambios en las clases.
