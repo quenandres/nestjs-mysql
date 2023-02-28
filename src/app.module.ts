@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './users/user.entity';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'root',
       password: 'faztpassword',
       database: 'nestdb',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      //entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      entities: [ User ],
       synchronize: true, //Sincronizar los cambios en bd cuando se hagan los cambios en las clases.
     }),
     UsersModule,

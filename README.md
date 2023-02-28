@@ -68,3 +68,46 @@ _app.module.ts_
 entities: [__dirname + '/**/*.entity{.ts,.js}'],
 ...
 ```
+
+
+## Create User
+Detallamos el tipo de datos que se utilizaran con un Dto.
+_create-user.dto.ts_
+```ts
+export class CreateUserDto {
+    userName: string;
+    password: string;
+}
+```
+
+*Ej* _users.service.ts_:
+```ts
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from './user.entity';
+import { CreateUserDto } from './dto/create-user.dto';
+
+@Injectable()
+export class UsersService {
+    constructor(
+        @InjectRepository(User) private userRepository: Repository<User>
+    ){}
+
+    createUser(user: CreateUserDto){
+        const newUser = this.userRepository.create(user);
+        return this.userRepository.save(newUser);
+    }
+
+    getUsers(){
+        return this.userRepository.find();        
+    }
+}
+```
+*Ej*: _users.controller.ts
+```ts
+@Post()
+createUser(@Body() newUser:CreateUserDto): Promise<User> {
+    return this.userService.createUser(newUser);
+}
+```
