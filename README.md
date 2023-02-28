@@ -111,3 +111,23 @@ createUser(@Body() newUser:CreateUserDto): Promise<User> {
     return this.userService.createUser(newUser);
 }
 ```
+
+## Obtener usuario
+*Ej*: _users.controller.ts
+```ts
+@Get(':id')
+getUSer(@Param('id', ParseIntPipe) id:number ) {
+    return this.userService.getUSer(id);
+}
+```
+
+*Ej* _users.service.ts_:
+```ts
+getUSer(id: number) {
+    return this.userRepository.findOne({
+        where: {
+            id: id
+        }
+    });
+}
+```
