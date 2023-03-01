@@ -181,3 +181,11 @@ async updateUser(id: number, user: UpdateUserDto) {
 }
 ```
 
+# Relaciones One to One
+_user.entity.ts_
+```ts
+@OneToOne(() => Profile)
+@JoinColumn()
+profile: Profile
+```
+Se debe crear el proceso en el archivo de service, donde se cree un repositorio para esta entidad y el propio metodo para guardar su info.
