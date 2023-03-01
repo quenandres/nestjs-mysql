@@ -131,3 +131,53 @@ getUSer(id: number) {
     });
 }
 ```
+
+## Eliminar usuario
+
+## Actualizar usuario
+
+
+## HTTP Exception
+```ts
+import { HttpException, Httpstatus } from '@nestjs/common';
+```
+```ts
+async deleteUser(id: number) {
+
+    const result = await this.userRepository.delete({id});
+
+    if( result.affected === 0 ) {
+        return new HttpException('user not found', HttpStatus.NOT_FOUND);
+    }       
+
+    return result;
+}
+
+async updateUser(id: number, user: UpdateUserDto) {
+
+    const userFound = await this.userRepository.findOne({
+        where: {
+            id
+        }
+    });
+
+    if( !userFound ) {
+        return new HttpException('user not found', HttpStatus.NOT_FOUND);
+    }
+
+    const userFound2 = await this.userRepository.findOne({
+        where: {
+            username: user.userName
+        }
+    });
+
+    if( userFound2 ) {
+        return new HttpException('user already exist', HttpStatus.CONFLICT);
+    }
+
+    const updateUser = Object.assign(userFound, user);
+
+    return this.userRepository.save(updateUser);
+}
+```
+
